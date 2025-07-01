@@ -72,6 +72,18 @@ app.post('/tarefas', async (req, res) => {
     console.log('Tarefa criada:', { descricao });
 });
 
+app.delete('/tarefas/:id', async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      await db.collection('tarefas').doc(id).delete();
+      res.status(200).json({ message: 'Tarefa apagada com sucesso' });
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao apagar tarefa' });
+    }
+});
+
+
   
 
 app.listen(port, () => {
