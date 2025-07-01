@@ -11,6 +11,11 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 })
 
+const db = admin.firestore();
+
+app.use(bodyParser.json());
+
+
 
 
 app.get('/', (req, res) => {
@@ -19,31 +24,55 @@ app.get('/', (req, res) => {
 
 
 
-
-
 app.get('/tarefas', async (req, res) => {
-    const db = admin.firestore();
+    
     
     try {
 
-        const tarefasSnapshot = await db.collection('tarefasTeste').get();
+        const tarefasSnapshot = await db.collection('tarefas').get();
         console.log('Tarefas:', tarefasSnapshot); // Vai mostrar quantos documentos foram encontrados
         const data = tarefasSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         res.status(200).json(data);
         
         
             
-        const tarefasSnapshot1 = await db.collection('tarefaTeste').get();
+        const tarefasSnapshot1 = await db.collection('tarefas').get();
         console.log('Tarefas:', tarefasSnapshot.docs.length); // Vai mostrar quantos documentos foram encontrados
         
 
     } catch (error) {
         console.error("Error fetching tasks:", error);
         res.status(500).send("Error fetching tasks");
-    }x 
+    }
 })
 
 
+app.post('/tarefas', async (req, res) => {
+    
+    const { descricao, feita } = req.body;
+  
+    if (!descricao) {
+      return res.status(400).json({ error: 'Descrição obrigatória' });
+    }
+  
+    try {
+      const novaTarefa = {
+        descricao,
+        feita: false,
+      };
+  
+      const docRef = await db.collection('tarefas').add(novaTarefa);
+      res.status(201).json({ id: docRef.id, ...novaTarefa });
+    } catch (error) {
+
+        
+      res.status(500).json({ error: 'Erro ao criar tarefa' });
+    }
+
+    console.log('Tarefa criada:', { descricao });
+});
+
+  
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
