@@ -84,6 +84,25 @@ app.delete('/tarefas/:id', async (req, res) => {
 });
 
 
+app.put('/tarefas/:id', async (req, res) => {
+    const { id } = req.params;
+    const { descricao, feita } = req.body;
+  
+    try {
+      const tarefaRef = db.collection('tarefas').doc(id);
+      const tarefa = await tarefaRef.get();
+  
+      if (!tarefa.exists) {
+        return res.status(404).json({ error: 'Tarefa não encontrada' });
+      }
+  
+      await tarefaRef.update({ ...(descricao && { descricao }), ...(feita !== undefined && { feita }) });
+      res.status(200).json({ message: 'Tarefa atualizada com sucesso' });
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao atualizar tarefa' });
+    }
+});
+  
   
 
 app.listen(port, () => {
