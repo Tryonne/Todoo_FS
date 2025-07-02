@@ -4,20 +4,31 @@ const axios = require('axios');
 
 //Get
 
-let config = {
-  method: 'get',
-  maxBodyLength: Infinity,
-  url: 'http://localhost:4002/tarefas',
-  headers: { }
-};
+async function getTarefas() {
 
-axios.request(config)
-.then((response) => {
-  console.log(JSON.stringify(response.data));
-})
-.catch((error) => {
-  console.log(error);
-});
+    try {
+
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:4002/tarefas',
+            headers: { }
+        };
+          
+        axios.request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+        })
+          .catch((error) => {
+            console.log(error);
+        });
+
+
+
+    } catch (error) {}
+
+}
+
 
 
 
@@ -45,4 +56,32 @@ async function atualizarTarefa(id) {
 
 }
 
-atualizarTarefa();
+//delete
+async function deleteTarefa(id) {
+    try {
+        let config = {
+            method: 'delete',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:4002/tarefas/yx7bd6JzfgvTOs21qsnz', // Substituir o x pelo id da tarefa
+            headers: { }
+          };
+          
+          axios.request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+
+    } catch (error){}
+}
+
+
+
+
+
+//getTarefas();
+//atualizarTarefa();
+deleteTarefa(); // Substituir o x pelo id da tarefa que deseja apagar
