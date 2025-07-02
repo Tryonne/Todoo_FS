@@ -78,10 +78,43 @@ async function deleteTarefa(id) {
     } catch (error){}
 }
 
+async function atualizarTarefa(id) {
+    try {
+        
+        let data = JSON.stringify({    // info que queremos atualizar
+            "descricao": "Comprar 3 paºes",
+            "feita": true
+        });
+          
+        let config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:4002/tarefas/iExSaCP5vf3B3rDp3rTv',// Substituir o x pelo id da tarefa
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            data : data
+        };
+          
+        axios.request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+        });
+          
+        
+    } catch (error) {
+        console.error('Erro ao atualizar tarefa:', error.message);
+    }
+}
+
 
 
 
 
 //getTarefas();
 //atualizarTarefa();
-deleteTarefa(); // Substituir o x pelo id da tarefa que deseja apagar
+//deleteTarefa(); 
+atualizarTarefa();
