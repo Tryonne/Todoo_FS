@@ -1,30 +1,38 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Hand+Pre:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans+Old+Italic&family=Oswald:wght@200..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
-
-
 .App {
-  width: 100vw;
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /*background-color: #486788; */
-  font-family: "Lora", cursive;
-  background-image: url("https://cdn.discordapp.com/attachments/772980054392569908/1386844259386265710/aesthetic-ghibli-tcfowyje586f5cba.png?ex=685b2edd&is=6859dd5d&hm=68de8f62ae23166a4f217aa4120986c05c13283543e98d71df7a3da89389437e&");
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.heading {
-  text-transform: uppercase;
-  font-size: 40px;
-  margin: 30px 0;
-  color: rgb(224, 180, 212);
-  z-index: 1;
-  text-align: center;
+.App-link {
+  color: #61dafb;
 }
 
-@media (max-width: 800px) {
-  .heading {
-    margin: 15px 0;
-    font-size: 35px;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
