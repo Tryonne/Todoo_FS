@@ -7,7 +7,7 @@ const cors = require('cors');
 const app = express();
 const port = 4002;
 
-const serviceAccount = require('./todoo-gui-firebase-adminsdk-fbsvc-63da9d5845.json');
+const serviceAccount = require('./todoo-gui-firebase-adminsdk-fbsvc-78e6679830.json');
 
 app.use(cors());
 
