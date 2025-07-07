@@ -112,12 +112,14 @@ function TodoList() {
                   onChange={e => setDescricaoEdicao(e.target.value)}
                   placeholder="Editar tarefa"
                 />
-                <button type="submit">Salvar</button>
+                <button type="submit">Guardar</button>
                 <button onClick={() => setTarefaEmEdicao(null)}>Cancelar</button>
               </form>
             ) : (
               <>
-                <span>{tarefa.descricao}</span>
+                <span>
+                  {tarefa.descricao}
+                </span>
                 <button onClick={() => {
                   setTarefaEmEdicao(tarefa.id);
                   setDescricaoEdicao(tarefa.descricao);
@@ -131,7 +133,6 @@ function TodoList() {
               checked={tarefa.feita}
               onChange={() => alternarFeita(tarefa.id, tarefa.feita)}
             />
-            {tarefa.descricao}
             <button onClick={() => apagarTarefa(tarefa.id)}>Apagar</button>
           </li>
         ))}
