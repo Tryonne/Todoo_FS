@@ -18,7 +18,7 @@ function TodoList() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    fetch("http://localhost:4002/tarefas")
+    fetch("http://localhost:3000/tarefas")
       .then(response => response.json())
       .then(data => setTarefas(data))
       .catch(error => console.error("Erro ao buscar tarefas:", error));
@@ -54,14 +54,15 @@ function TodoList() {
       });
     
     
-    const tarefaAtualizada = await res.json();
-    setTarefas(tarefas.map(tarefas => (tarefas.id === id ? tarefaAtualizada : tarefas)));
-    setTarefaEmEdicao(null);
-    setDescricaoEdicao("");
+      const tarefaAtualizada = await res.json();
+      setTarefas(tarefas.map(tarefas => (tarefas.id === id ? tarefaAtualizada : tarefas)));
+      setTarefaEmEdicao(null);
+      setDescricaoEdicao("");
 
-  } catch (error) {
+    } catch (error) {
     console.error("Erro ao atualizar tarefa:", error);
-  } 
+    } 
+  }
   // Marcar tarefa como feita/por fazer
   const alternarFeita = async (id: string, feita: boolean) => {
     await fetch(`http://localhost:4002/tarefas/${id}`, {
