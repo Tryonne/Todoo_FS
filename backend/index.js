@@ -99,9 +99,18 @@ app.put('/tarefas/:id', async (req, res) => {
       if (!tarefa.exists) {
         return res.status(404).json({ error: 'Tarefa não encontrada' });
       }
+
+      //atualizar a tarefa 
   
       await tarefaRef.update({ ...(descricao && { descricao }), ...(feita !== undefined && { feita }) });
-      res.status(200).json({ message: 'Tarefa atualizada com sucesso' });
+      // res.status(200).json({ message: 'Tarefa atualizada com sucesso' });  --- Problema porque não retorna o objeto atualizado, após o primeiro edit ao fazer o pedido retorna isto deixando em brando o tarefa no FE
+
+      // Procurar tarefa atualizada
+      const tarefaAtualizada = await tarefaRef.get();
+      const data = tarefaAtualizada.data();
+
+      res.status(200).json({ id: tarefaAtualizada.id, ...data }); // Retorna o objeto atualizado com o ID
+
     } catch (error) {
       res.status(500).json({ error: 'Erro ao atualizar tarefa' });
     }

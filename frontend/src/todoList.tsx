@@ -100,14 +100,7 @@ function TodoList() {
       <ul>
         {tarefas.map((tarefa) => (
           <li key={tarefa.id}>
-            <input
-              type="checkbox"
-              checked={tarefa.feita}
-              onChange={() => alternarFeita(tarefa.id, tarefa.feita)}
-            />
-            <span style={{ textDecoration: tarefa.feita ? "line-through" : "none" }}>
-              {tarefa.descricao}
-            </span>
+            {/* Quando estamos a editar a tarefaaa*/}
             {tarefaEmEdicao === tarefa.id ? (
               <form
                 onSubmit={e => {
@@ -124,17 +117,28 @@ function TodoList() {
                 <button onClick={() => setTarefaEmEdicao(null)}>Cancelar</button>
               </form>
             ) : (
-              <>
+
+              /* Visualização da tarefa */
+            <>
+
+            <input
+              type="checkbox"
+              checked={tarefa.feita}
+              onChange={() => alternarFeita(tarefa.id, tarefa.feita)}
+            />
+
+            <span style={{ textDecoration: tarefa.feita ? "line-through" : "none" }}>
+              {tarefa.descricao}
+            </span>
                 
-                <button onClick={() => {
-                  setTarefaEmEdicao(tarefa.id);
-                  setDescricaoEdicao(tarefa.descricao);
-                }}>Editar</button>
+            <button onClick={() => {
+              setTarefaEmEdicao(tarefa.id);
+              setDescricaoEdicao(tarefa.descricao);
+            }}>Editar</button>
               
               </>
             )}
-            
-            
+        
             <button onClick={() => apagarTarefa(tarefa.id)}>Apagar</button>
           </li>
         ))}
