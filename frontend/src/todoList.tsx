@@ -50,7 +50,7 @@ function TodoList() {
       const res = await fetch(`http://localhost:4002/tarefas/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ descricao: novaDescricao }),
+        body: JSON.stringify({ descricao }),
       });
     
     
@@ -100,6 +100,14 @@ function TodoList() {
       <ul>
         {tarefas.map((tarefa) => (
           <li key={tarefa.id}>
+            <input
+              type="checkbox"
+              checked={tarefa.feita}
+              onChange={() => alternarFeita(tarefa.id, tarefa.feita)}
+            />
+            <span style={{ textDecoration: tarefa.feita ? "line-through" : "none" }}>
+              {tarefa.descricao}
+            </span>
             {tarefaEmEdicao === tarefa.id ? (
               <form
                 onSubmit={e => {
@@ -117,9 +125,7 @@ function TodoList() {
               </form>
             ) : (
               <>
-                <span>
-                  {tarefa.descricao}
-                </span>
+                
                 <button onClick={() => {
                   setTarefaEmEdicao(tarefa.id);
                   setDescricaoEdicao(tarefa.descricao);
@@ -128,11 +134,7 @@ function TodoList() {
               </>
             )}
             
-            <input
-              type="checkbox"
-              checked={tarefa.feita}
-              onChange={() => alternarFeita(tarefa.id, tarefa.feita)}
-            />
+            
             <button onClick={() => apagarTarefa(tarefa.id)}>Apagar</button>
           </li>
         ))}
